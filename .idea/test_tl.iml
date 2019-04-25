@@ -7,7 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/common" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/config" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/data" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/page" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Page" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/report" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/run" isTestSource="false" />
     </content>

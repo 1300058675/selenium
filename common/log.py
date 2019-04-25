@@ -57,7 +57,7 @@ class Log():
     def error(self,message):
         self.__printconsole('error', message)
 
-if __name__ == '__main__':
-    a = Log()
-    a.info('haha')
+# if __name__ == '__main__':
+#     a = Log()
+#     a.info('haha')
 

@@ -5,7 +5,7 @@ from datetime import datetime
 
 class readExcel():
 
-	def __init__(self, sheetdata, sheetName="Sheet2"):
+	def __init__(self, sheetdata, sheetName="Sheet1"):
 		#打开Excel表格
 		# self.data = xlrd.open_workbook(excelPath)
 		# self.table = self.data.sheet_by_name(sheetName)

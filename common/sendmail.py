@@ -67,9 +67,9 @@ class SendMail:
             smtp.login(sendaddr_name, sendaddr_pswd)
             smtp.sendmail(self.msg['from'], self.sendTo, self.msg.as_string())
             smtp.close()
-            logger.info("发送邮件成功")
+            logger.info("Email sent successfully")
         except Exception:
-            logger.error('发送邮件失败')
+            logger.error('Failed to send email')
             raise
 
 
