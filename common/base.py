@@ -1,5 +1,5 @@
 import os
-from time import sleep
+import time
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains    #导入鼠标事件
 from selenium.webdriver.support import expected_conditions as EC
@@ -12,35 +12,35 @@ read_config = ReadConfig()
 
 url = read_config.getValue('testServer', 'URL')
 browserName = read_config.getValue('browserType', 'browserName')
+_timeout = read_config.getIntValue('waitTime', 'timeout')
+_t = read_config.getFloatValue('waitTime', 'time')
+
 
 class Base(object):
 
     def __init__(self, browser = browserName, base_url = url):
+        t1 = time.time()
+
+        if browser == "Firefox" or browser =="firefox":
+            dr = webdriver.Firefox()
+        elif browser == "Chrome" or browser == "chrome":
+            dr = webdriver.Chrome()
+        elif browser == "ie" or browser =="IE":
+            dr = webdriver.Ie()
+        elif browser == "phantomjs":
+            dr = webdriver.PhantomJS()
+        else:
+            logger.error("Not found {0} browser,You can enter 'ie','ff',"
+                            "'chrome','RChrome','RIe' or 'RFirefox'.".format(browser))
         try:
-            if browser == "Firefox" or browser =="firefox":
-                driver = webdriver.Firefox()
-                self.driver = driver
-                logger.info("正在打开"+browser+"浏览器")
-            elif browser == "Chrome" or browser == "chrome":
-                driver = webdriver.Chrome()
-                self.driver = driver
-                logger.info("正在打开"+browser+"浏览器")
-            elif browser == "ie" or browser =="IE":
-                driver = webdriver.Ie()
-                self.driver = driver
-                logger.info("正在打开"+browser+"浏览器")
-            elif browser == "phantomjs":
-                driver = webdriver.PhantomJS()
-                self.driver = driver
-                logger.info("正在打开"+browser+"浏览器")
-            else:
-                logger.error("没有发现你所使用的浏览器,你可以使用'firefox','chrome', 'ie' 或者 'phantomjs'")
+            self.driver = dr
+            logger.info("Start a new browser: {0}, Spend {1} seconds".format(browser, time.time() - t1))
         except Exception as e: # 捕获所有异常的方方法
             logger.error("%s" % e)
 
         self.base_url = base_url
-        self.timeout =15
-        self.t = 0.5
+        self.timeout = _timeout
+        self.t = _t
 
 
     def open(self):
@@ -55,22 +55,22 @@ class Base(object):
 
     def find_element(self, locator):
         try:
-            logger.info('正在通过==》“'+locator[0]+'”定位元素==》“'+locator[1]+'”')
+            logger.info('Is using -> “'+locator[0]+'” Positioning elements -> “'+locator[1]+'”')
             element = WebDriverWait(self.driver, self.timeout, self.t).until(EC.presence_of_element_located(locator))
-            logger.info('“'+locator[0]+'”----“'+locator[1]+'”,定位成功')
+            logger.info('“'+locator[0]+'” -> “'+locator[1]+'”,  Positioning success')
             return element
         except Exception as msg:  # 捕获所有异常的方方法
-            logger.error('“'+locator[0]+'”----“'+locator[1]+'”,定位失败')
+            logger.error('“'+locator[0]+'” -> “'+locator[1]+'”,  Positioning faile')
 
 
     def find_elements(self, locator):
         try:
-            logger.info('正在通过==》“'+locator[0]+'”定位元素==》“'+locator[1]+'”')
+            logger.info('Is using -> “'+locator[0]+'” Positioning elements -> “'+locator[1]+'”')
             element = WebDriverWait(self.driver, self.timeout, self.t).until(EC.presence_of_all_elements_located(locator))
-            logger.info('“'+locator[0]+'”----“'+locator[1]+'”,定位成功')
+            logger.info('“'+locator[0]+'” -> “'+locator[1]+'”,  Positioning success')
             return element
         except Exception as msg:  # 捕获所有异常的方方法
-            logger.error('“'+locator[1]+'”这组元素定位失败')
+            logger.error('“'+locator[1]+'” the all Positioning faile')
 
 
     def sendKeys(self, locator, text):
@@ -87,9 +87,15 @@ class Base(object):
         element = self.find_element(locator)
         element.clear()
 
+
+    def close(self):
+        self.driver.close()
+        logger.info('The browser si closesing')
+
+
     def max_window(self):
         self.driver.maximize_window()
-        logger.info('max the window')
+        logger.info('Maximizing the Windows')
 
 
     def is_title(self, title):
@@ -98,7 +104,7 @@ class Base(object):
             result = WebDriverWait(self.driver, self.timeout, self.t).until(EC.title_is(title))
             return result
         except:
-            logger.error('URL的标题不一致')
+            logger.error('The url is inconsistent with the title')
 
 
     def is_title_contains(self, title):
@@ -107,7 +113,7 @@ class Base(object):
             result = WebDriverWait(self.driver, self.timeout, self.t).until(EC.title_contains(title))
             return result
         except:
-            logger.error('URL的标题不包含'+str(title))
+            logger.error('The title of the url does not include '+str(title))
 
 
     def is_ElementExist(self, locator):
@@ -116,7 +122,7 @@ class Base(object):
             self.find_element(locator)
             return True
         except:
-            logger.error('元素“'+locator[1]+'”不存在')
+            logger.error('The element “'+locator[1]+'” does not exist')
 
 
     def is_text_element(self, locator, text):
@@ -125,7 +131,7 @@ class Base(object):
             result = WebDriverWait(self.driver,self.timeout,self.t).until(EC.text_to_be_present_in_element(locator,text))
             return result
         except:
-            logger.error('元素“'+locator[1]+'”中的text和预期结果不一致')
+            logger.error('The element “'+locator[1]+'” text is inconsistency')
 
 
     def is_Selected(self, locator):
@@ -135,7 +141,7 @@ class Base(object):
             result = element.is_selected()
             return result
         except:
-            logger.error('元素“' + locator[1] + '”未被选中')
+            logger.error('The element “' + locator[1] + '” have not been selected')
 
 
     def get_text(self, locator):
@@ -144,7 +150,7 @@ class Base(object):
             t = self.find_element(locator).text
             return t
         except:
-            logger.error('获取元素“'+locator[1]+'”文本值失败，将输出一个空字符')
+            logger.error('GET the element “'+locator[1]+'” is faile')
             return ''
 
 
@@ -154,7 +160,7 @@ class Base(object):
             t = self.find_element(locator).get_attribute('value')
             return t
         except:
-            logger.info('获取元素“'+locator[1]+'”文本值失败，将输出一个空字符')
+            logger.error('GET the element “' + locator[1] + '” is faile')
             return ''
 
 
@@ -263,33 +269,13 @@ class Base(object):
         target = self.find_element(ta_locator)
         ActionChains(self.driver).drag_and_drop(element, target).perform()
 
+
 if __name__ == '__main__':
     base = Base()
     base.open()
     base.max_window()
-    base.find_element(('id', 'su'))
-    base.sendKeys(('id', 'kw'), 'haha')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    a = ('id', 'kw')
+    base.sendKeys(a, 'haha')
+    base.click(('id', 's'))
+    time.sleep(1)
+    base.close()
