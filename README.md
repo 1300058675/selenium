@@ -3,16 +3,16 @@ unittest + selenium  framework
 
 
 # 框架结构
-Framework
----Page
----case
----common
----config                //配置文件
----data       
----report
-------log                //日子文件
-------testreport         //html报告
----run
+---------Framework
+------------------Page
+------------------case
+------------------common
+------------------config                //配置文件
+------------------data       
+--------------------------------report
+--------------------------------log       //日子文件
+------------------testreport         //html报告
+------------------run
 
 
 # 截图问题
