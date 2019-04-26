@@ -876,11 +876,11 @@ class _TestResult(TestResult):
         _, _exc_str = self.errors[-1]
         output = self.complete_output()
         self.result.append((2, test, output, _exc_str))
-        if not getattr(test, "driver",""):
+        if not getattr(test, "basePage",""):
             pass
         else:
             try:
-                driver = getattr(test, "driver")
+                driver = getattr(test, "basePage")
                 test.imgs.append(driver.get_screenshot_as_base64())
             except Exception:
                 pass

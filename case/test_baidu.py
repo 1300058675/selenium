@@ -12,9 +12,9 @@ class Search_Baidu(myunit.Myunit):
 
     @ddt.data(*success_list)
     def test01(self, data):
-        self.basePage.searchInput(data['search'])
-        self.basePage.clickButton()
-        assert_value = self.basePage.is_title(data['search']+'_百度搜索')
+        self.basepage.searchInput(data['search'])
+        self.basepage.clickButton()
+        assert_value = self.basepage.is_title(data['search']+'1_百度搜索')
         self.assertTrue(assert_value)
 
 

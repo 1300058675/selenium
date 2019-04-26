@@ -19,25 +19,25 @@ _t = read_config.getFloatValue('waitTime', 'time')
 class Base(object):
 
     def __init__(self, browser = browserName, base_url = url):
+
         t1 = time.time()
 
         if browser == "Firefox" or browser =="firefox":
-            dr = webdriver.Firefox()
+            driver = webdriver.Firefox()
         elif browser == "Chrome" or browser == "chrome":
-            dr = webdriver.Chrome()
+            driver = webdriver.Chrome()
         elif browser == "ie" or browser =="IE":
-            dr = webdriver.Ie()
+            driver = webdriver.Ie()
         elif browser == "phantomjs":
-            dr = webdriver.PhantomJS()
+            driver = webdriver.PhantomJS()
         else:
             logger.error("Not found {0} browser,You can enter 'ie','ff',"
                             "'chrome','RChrome','RIe' or 'RFirefox'.".format(browser))
         try:
-            self.driver = dr
+            self.driver = driver
             logger.info("Start a new browser: {0}, Spend {1} seconds".format(browser, time.time() - t1))
         except Exception as e: # 捕获所有异常的方方法
             logger.error("%s" % e)
-
         self.base_url = base_url
         self.timeout = _timeout
         self.t = _t
@@ -51,6 +51,7 @@ class Base(object):
         '''
         self.driver.get(self.base_url)
         logger.info('open the url  '+self.base_url)
+        return self.driver
 
 
     def find_element(self, locator):
@@ -268,14 +269,3 @@ class Base(object):
         element = self.find_element(el_locator)
         target = self.find_element(ta_locator)
         ActionChains(self.driver).drag_and_drop(element, target).perform()
-
-
-if __name__ == '__main__':
-    base = Base()
-    base.open()
-    base.max_window()
-    a = ('id', 'kw')
-    base.sendKeys(a, 'haha')
-    base.click(('id', 's'))
-    time.sleep(1)
-    base.close()

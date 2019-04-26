@@ -16,7 +16,3 @@ class baiduPage(Base):
 if __name__ == '__main__':
     base = baiduPage()
     base.open()
-    base.max_window()
-    base.searchInput('hah')
-    base.clickButton()
-    base.close()

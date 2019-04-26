@@ -9,20 +9,22 @@ class Myunit(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        pass
+
+        cls.basepage = baiduPage()
+
+        cls.driver = cls.basepage.open()
 
     def setUp(self):
         print('\n')
         logger.info('---------------Start to perform---------------')
-        self.basePage = baiduPage()
-        self.basePage.open()
-        self.basePage.max_window()
+        self.driver = self.basepage.open()
+        self.basepage.max_window()
 
     def tearDown(self):
-        self.basePage.close()
         logger.info('---------------Perform the end---------------')
+        # sleep(2)
 
     @classmethod
     def tearDownClass(cls):
         sleep(1)
-        pass
+        cls.basepage.close()
