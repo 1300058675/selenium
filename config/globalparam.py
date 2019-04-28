@@ -1,4 +1,4 @@
-#coding=utf-8
+# coding=utf-8
 import os
 
 from readconfig import ReadConfig
@@ -10,7 +10,7 @@ config_file_path = os.path.split(os.path.realpath(__file__))[0]
 read_config = ReadConfig()
 
 # 项目参数设置
-prj_path = read_config.getValue('projectConfig','project_path')
+prj_path = read_config.getValue('projectConfig', 'project_path')
 
 # 日志路径
 log_path = os.path.join(prj_path, 'report', 'log')

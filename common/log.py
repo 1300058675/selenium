@@ -4,10 +4,13 @@ import time
 import os
 now = time.strftime("%Y-%m-%d %H-%M-%S")
 
+
 class Log():
 
     def __init__(self):
-        self.logname = os.path.join(globalparam.log_path, '{0}.log'.format(time.strftime('%Y-%m-%d %H-%M-%S')))
+        self.logname = os.path.join(
+            globalparam.log_path, '{0}.log'.format(
+                time.strftime('%Y-%m-%d %H-%M-%S')))
 
     def __printconsole(self, level, message):
         # 创建一个logger
@@ -15,7 +18,7 @@ class Log():
         logger.setLevel(logging.DEBUG)
 
         # 创建一个handler，用于写入日志文件
-        fh = logging.FileHandler(self.logname,'a', encoding='utf-8')
+        fh = logging.FileHandler(self.logname, 'a', encoding='utf-8')
         fh.setLevel(logging.DEBUG)
 
         # 再创建一个handler，用于输出到控制台
@@ -23,7 +26,8 @@ class Log():
         ch.setLevel(logging.DEBUG)
 
         # 定义handler的输出格式
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(filename)s - %(module)s - %(lineno)d - %(levelname)s - %(message)s ')
+        formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(filename)s - %(module)s - %(lineno)d - %(levelname)s - %(message)s ')
         fh.setFormatter(formatter)
         ch.setFormatter(formatter)
 
@@ -45,19 +49,19 @@ class Log():
         # 关闭打开的文件
         fh.close()
 
-    def debug(self,message):
+    def debug(self, message):
         self.__printconsole('debug', message)
 
-    def info(self,message):
+    def info(self, message):
         self.__printconsole('info', message)
 
-    def warning(self,message):
+    def warning(self, message):
         self.__printconsole('warning', message)
 
-    def error(self,message):
+    def error(self, message):
         self.__printconsole('error', message)
 
-# if __name__ == '__main__':
-#     a = Log()
-#     a.info('haha')
 
+if __name__ == '__main__':
+    a = Log()
+    a.info('haha')

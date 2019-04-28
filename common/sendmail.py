@@ -23,6 +23,7 @@ recvaddress = [i.strip() for i in raw_value.split(',')]
 sendaddr_name = readConfig.getValue('sendEmail', 'senduser')
 sendaddr_pswd = readConfig.getValue('sendEmail', 'sendpsw')
 
+
 class SendMail:
 
     def __init__(self, recver=None):
@@ -34,8 +35,7 @@ class SendMail:
 
     def __get_report(self):
         """获取最新测试报告"""
-        dirs = os.listdir(reportPath)
-        dirs.sort()
+        dirs = sorted(os.listdir(reportPath))
         newreportname = dirs[-1]
         logger.info('The new report name: {0}'.format(newreportname))
         return newreportname
@@ -55,7 +55,8 @@ class SendMail:
         # html附件
         att1 = MIMEText(mailbody, 'base64', 'gb2312')
         att1["Content-Type"] = 'application/octet-stream'
-        att1["Content-Disposition"] = 'attachment; filename="TestReport.html"'  # 这里的filename可以任意写，写什么名字，邮件中显示什么名字
+        # 这里的filename可以任意写，写什么名字，邮件中显示什么名字
+        att1["Content-Disposition"] = 'attachment; filename="TestReport.html"'
         self.msg.attach(att1)
 
     def send(self):
@@ -76,6 +77,3 @@ class SendMail:
 if __name__ == '__main__':
     sendMail = SendMail()
     sendMail.send()
-
-
-

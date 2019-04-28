@@ -5,6 +5,8 @@ from common.log import Log
 logger = Log()
 
 # 这是unittest
+
+
 class Myunit(unittest.TestCase):
 
     @classmethod
