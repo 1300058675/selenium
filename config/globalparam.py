@@ -16,7 +16,7 @@ prj_path = read_config.getValue('projectConfig', 'project_path')
 log_path = os.path.join(prj_path, 'report', 'log')
 
 # 截图文件路径
-# img_path = os.path.join(prj_path, 'report', 'image')
+img_path = os.path.join(prj_path, 'report', 'image')
 
 # 测试报告路径
 report_path = os.path.join(prj_path, 'report', 'testreport')

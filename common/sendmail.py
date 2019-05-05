@@ -16,7 +16,7 @@ logger = Log()
 
 # 配置收件人
 raw_value = readConfig.getValue('sendEmail', 'recvaddress')
-# 将读取的收件人已','便利放入列表
+# 将读取的收件人已','遍历放入列表
 recvaddress = [i.strip() for i in raw_value.split(',')]
 
 # 发件人用户名和密匙
