@@ -2,7 +2,6 @@ from common import myunit
 from common.readExcel import readExcel
 import ddt
 import unittest
-from BeautifulReport import BeautifulReport
 
 readExcel = readExcel('login_data.xlsx')
 success_list = readExcel.get_value()
@@ -13,7 +12,7 @@ class Search_Baidu(myunit.Myunit):
 
     '''百度搜索测试'''
     @ddt.data(*success_list)
-    def test01(self, data):
+    def test01(self):
         '''通过断言 java_百度搜索判断'''
         self.basepage.searchInput(data['search'])
         self.basepage.clickButton()
