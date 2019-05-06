@@ -2,11 +2,12 @@
 import os
 import smtplib
 import time
-from config.readconfig import ReadConfig
-from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from common.log import Log
+from email.mime.text import MIMEText
+
 from config import globalparam
+from config.readconfig import ReadConfig
+from log import Log
 
 readConfig = ReadConfig()
 
@@ -55,6 +56,7 @@ class SendMail:
         # html附件
         att1 = MIMEText(mailbody, 'base64', 'gb2312')
         att1["Content-Type"] = 'application/octet-stream'
+
         # 这里的filename可以任意写，写什么名字，邮件中显示什么名字
         att1["Content-Disposition"] = 'attachment; filename="TestReport.html"'
         self.msg.attach(att1)

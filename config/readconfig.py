@@ -1,15 +1,18 @@
 # coding=utf-8
 import configparser
+import os
 
+curpath = os.path.dirname(os.path.realpath(__file__))
+config_path = os.path.join(curpath, "config.ini")
 
 class ReadConfig():
 
     def __init__(self):
-        self.sFile = '..\\config\\config.ini'
+        self.sFile = config_path
         try:
             self.conf = configparser.ConfigParser()
             self.conf.read(self.sFile)
-        except Exception as err:
+        except:
             raise
 
     '''
@@ -41,7 +44,7 @@ class ReadConfig():
             value = self.conf.get(section, option)
             return value
         except Exception:
-            return 0
+            return '这是bug'
     '''
     获取配置信息的数据，返回int类型
     '''

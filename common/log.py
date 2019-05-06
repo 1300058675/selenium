@@ -44,6 +44,9 @@ class Log():
             logger.warning(message)
         elif level == 'error':
             logger.error(message)
+        elif level == 'exception':
+            logger.exception(message)
+
         logger.removeHandler(ch)
         logger.removeHandler(fh)
         # 关闭打开的文件
@@ -61,7 +64,15 @@ class Log():
     def error(self, message):
         self.__printconsole('error', message)
 
+    def exception(self, message):
+        self.__printconsole('exception', message)
 
 if __name__ == '__main__':
     a = Log()
-    a.info('haha')
+    try:
+        a.exception('hha ')
+        10 / 0
+    except ZeroDivisionError:
+        a.exception('错误日志')
+    except:
+        a.info('hah')
