@@ -27,7 +27,7 @@ class Log():
 
         # 定义handler的输出格式
         formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(filename)s [%(module)s:%(lineno)d] - %(levelname)s - %(message)s    ')
+            '%(asctime)s - %(name)s - %(filename)s - %(levelname)s - %(message)s    ')
         fh.setFormatter(formatter)
         ch.setFormatter(formatter)
 
