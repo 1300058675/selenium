@@ -12,7 +12,7 @@ class Search_Baidu(myunit.Myunit):
 
     '''百度搜索测试'''
     @ddt.data(*success_list)
-    def test01(self):
+    def test01(self, data):
         '''通过断言 java_百度搜索判断'''
         self.basepage.searchInput(data['search'])
         self.basepage.clickButton()
