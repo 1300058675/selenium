@@ -1,6 +1,7 @@
 # selenium
-unittest + selenium  framework
-
+# 这是什么框架?
+---
+是一个unittest + selenium  framework的功能自动化框架
 
 # 框架结构
 ---------Framework
@@ -19,7 +20,6 @@ unittest + selenium  framework
 应为htmlrunner 断言失败截图需要webdriver.Chrome()
 driver = getattr(test, "driver")
 test.imgs.append(driver.get_screenshot_as_base64())
-
 
 
 在unittest调用open方法时，对self.driver赋值
